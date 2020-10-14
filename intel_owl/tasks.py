@@ -29,7 +29,6 @@ from api_app.script_analyzers.observable_analyzers import (
     fortiguard,
     maxmind,
     greynoise,
-    googlesf,
     otx,
     talos,
     tor,
@@ -50,17 +49,32 @@ from api_app.script_analyzers.observable_analyzers import (
     threatminer,
     thug_url,
     urlhaus,
-    active_dns,
     auth0,
     securitytrails,
     cymru,
     tranco,
     pulsedive,
-    quad9,
     intelx,
     whoisxmlapi,
     checkdmarc,
     urlscan,
+)
+
+from api_app.script_analyzers.observable_analyzers.dns.dns_resolvers import (
+    cloudflare_dns_resolver,
+    google_dns_resolver,
+)
+from api_app.script_analyzers.observable_analyzers.dns.dns_resolvers import (
+    quad9_dns_resolver,
+    classic_dns_resolver,
+)
+
+from api_app.script_analyzers.observable_analyzers.dns.dns_malicious_detectors import (
+    cloudflare_malicious_detector,
+    googlesf,
+)
+from api_app.script_analyzers.observable_analyzers.dns.dns_malicious_detectors import (
+    quad9_malicious_detector,
 )
 
 from api_app import crons
@@ -139,14 +153,65 @@ def securitytrails_run(
 
 
 @shared_task(soft_time_limit=30)
-def activedns_run(
+def classic_dns_run(
     analyzer_name,
     job_id,
     observable_name,
     observable_classification,
     additional_config_params,
 ):
-    active_dns.ActiveDNS(
+    classic_dns_resolver.ClassicDNSResolver(
+        analyzer_name,
+        job_id,
+        observable_name,
+        observable_classification,
+        additional_config_params,
+    ).start()
+
+
+@shared_task(soft_time_limit=30)
+def cloudflare_dns_run(
+    analyzer_name,
+    job_id,
+    observable_name,
+    observable_classification,
+    additional_config_params,
+):
+    cloudflare_dns_resolver.CloudFlareDNSResolver(
+        analyzer_name,
+        job_id,
+        observable_name,
+        observable_classification,
+        additional_config_params,
+    ).start()
+
+
+@shared_task(soft_time_limit=30)
+def google_dns_run(
+    analyzer_name,
+    job_id,
+    observable_name,
+    observable_classification,
+    additional_config_params,
+):
+    google_dns_resolver.GoogleDNSResolver(
+        analyzer_name,
+        job_id,
+        observable_name,
+        observable_classification,
+        additional_config_params,
+    ).start()
+
+
+@shared_task(soft_time_limit=30)
+def quad9_dns_run(
+    analyzer_name,
+    job_id,
+    observable_name,
+    observable_classification,
+    additional_config_params,
+):
+    quad9_dns_resolver.Quad9DNSResolver(
         analyzer_name,
         job_id,
         observable_name,
@@ -198,6 +263,40 @@ def googlesf_run(
     additional_config_params,
 ):
     googlesf.GoogleSF(
+        analyzer_name,
+        job_id,
+        observable_name,
+        observable_classification,
+        additional_config_params,
+    ).start()
+
+
+@shared_task(soft_time_limit=30)
+def quad9_malicious_detector_run(
+    analyzer_name,
+    job_id,
+    observable_name,
+    observable_classification,
+    additional_config_params,
+):
+    quad9_malicious_detector.Quad9MaliciousDetector(
+        analyzer_name,
+        job_id,
+        observable_name,
+        observable_classification,
+        additional_config_params,
+    ).start()
+
+
+@shared_task(soft_time_limit=30)
+def cloudflare_malicious_detector_run(
+    analyzer_name,
+    job_id,
+    observable_name,
+    observable_classification,
+    additional_config_params,
+):
+    cloudflare_malicious_detector.CloudFlareMaliciousDetector(
         analyzer_name,
         job_id,
         observable_name,
@@ -767,23 +866,6 @@ def urlscan_run(
     additional_config_params,
 ):
     urlscan.UrlScan(
-        analyzer_name,
-        job_id,
-        observable_name,
-        observable_classification,
-        additional_config_params,
-    ).start()
-
-
-@shared_task(soft_time_limit=30)
-def quad9_run(
-    analyzer_name,
-    job_id,
-    observable_name,
-    observable_classification,
-    additional_config_params,
-):
-    quad9.Quad9(
         analyzer_name,
         job_id,
         observable_name,

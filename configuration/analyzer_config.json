@@ -18,46 +18,6 @@
     "requires_configuration": true,
     "python_module": "abuseipdb_run"
   },
-  "ActiveDNS_Classic": {
-    "type": "observable",
-    "observable_supported": ["ip", "domain"],
-    "external_service": true,
-    "description": "Retrieve current domain resolution with default DNS",
-    "python_module": "activedns_run",
-    "additional_config_params": {
-      "service": "classic"
-    }
-  },
-  "ActiveDNS_CloudFlare": {
-    "type": "observable",
-    "observable_supported": ["domain"],
-    "external_service": true,
-    "description": "Retrieve current domain resolution with CloudFlare DoH (DNS over HTTPS)",
-    "python_module": "activedns_run",
-    "additional_config_params": {
-      "service": "cloudflare"
-    }
-  },
-  "ActiveDNS_CloudFlare_Malware": {
-    "type": "observable",
-    "observable_supported": ["domain"],
-    "external_service": true,
-    "description": "Detect malicious domains thanks to CloudFlare DoH Malware Filter",
-    "python_module": "activedns_run",
-    "additional_config_params": {
-      "service": "cloudflare_malware"
-    }
-  },
-  "ActiveDNS_Google": {
-    "type": "observable",
-    "observable_supported": ["domain"],
-    "external_service": true,
-    "description": "Retrieve current domain resolution with Google DoH (DNS over HTTPS)",
-    "python_module": "activedns_run",
-    "additional_config_params": {
-      "service": "google"
-    }
-  },
   "Auth0": {
     "type": "observable",
     "observable_supported": ["ip"],
@@ -97,6 +57,33 @@
     "description": "scan an observable against the CIRCL Passive SSL DB",
     "requires_configuration": true,
     "python_module": "circlpssl_run"
+  },
+  "Classic_DNS": {
+    "type": "observable",
+    "observable_supported": ["ip", "domain", "url"],
+    "external_service": true,
+    "description": "Retrieve current domain resolution with default DNS",
+    "python_module": "classic_dns_run",
+    "additional_config_params": {
+      "query_type": "A"
+    }
+  },
+  "CloudFlare_DNS": {
+    "type": "observable",
+    "observable_supported": ["domain", "url"],
+    "external_service": true,
+    "description": "Retrieve current domain resolution with CloudFlare DoH (DNS over HTTPS)",
+    "python_module": "cloudflare_dns_run",
+    "additional_config_params": {
+      "query_type": "A"
+    }
+  },
+  "CloudFlare_Malicious_Detector": {
+    "type": "observable",
+    "observable_supported": ["domain", "url"],
+    "external_service": true,
+    "description": "Scan an observable against CloudFlare DB",
+    "python_module": "cloudflare_malicious_detector_run"
   },
   "Capa_Info": {
     "type": "file",
@@ -211,11 +198,21 @@
     "description": "scan an observable with the Fortiguard URL Analyzer",
     "python_module": "fortiguard_run"
   },
+  "Google_DNS": {
+    "type": "observable",
+    "observable_supported": ["domain", "url"],
+    "external_service": true,
+    "description": "Retrieve current domain resolution with Google DoH (DNS over HTTPS)",
+    "python_module": "google_dns_run",
+    "additional_config_params": {
+      "query_type": "A"
+    }
+  },
   "GoogleSafebrowsing": {
     "type": "observable",
-    "observable_supported": ["domain", "url", "ip"],
+    "observable_supported": ["ip", "domain", "url"],
     "external_service": true,
-    "description": "scan an observable against GoogleSafeBrowsing DB",
+    "description": "Scan an observable against GoogleSafeBrowsing DB",
     "requires_configuration": true,
     "python_module": "googlesf_run"
   },
@@ -435,12 +432,22 @@
       "active_scan": true
     }
   },
-  "Quad9": {
+  "Quad9_DNS": {
     "type": "observable",
     "observable_supported": ["domain", "url"],
     "external_service": true,
-    "description": "Check if a domain or an url is marked as malicious in Quad9 database",
-    "python_module": "quad9_run"
+    "description": "Retrieve current domain resolution with Quad9 DoH (DNS over HTTPS)",
+    "python_module": "quad9_dns_run",
+    "additional_config_params": {
+      "query_type": "A"
+    }
+  },
+  "Quad9_Malicious_Detector": {
+    "type": "observable",
+    "observable_supported": ["domain", "url"],
+    "external_service": true,
+    "description": "Scan an observable against Quad9 DB",
+    "python_module": "quad9_malicious_detector_run"
   },
   "Quark_Engine_APK": {
     "type": "file",

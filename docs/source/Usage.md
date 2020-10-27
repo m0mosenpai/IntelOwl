@@ -40,6 +40,7 @@ The following is the list of the available analyzers you can run out-of-the-box:
 * `Xlm_Macro_Deobfuscator`:  [XlmMacroDeobfuscator](https://github.com/DissectMalware/XLMMacroDeobfuscator) deobfuscate xlm macros
 * `PE_Info`: static PE analysis
 * `Signature_Info`: PE signature extractor
+* `PCAP_Info`: network packet capture analysis
 * `Speakeasy`: Speakeasy binary emulation
 * `Strings_Info_Classic`: strings extraction
 * `Strings_Info_ML`: strings extraction plus strings ranking based on Machine Learning

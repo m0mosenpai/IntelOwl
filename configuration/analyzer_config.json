@@ -523,6 +523,16 @@
     },
     "soft_time_limit": 40
   },
+  "PCAP_Info":{
+    "type": "file",
+    "supported_filetypes": [
+      "application/vnd.tcpdump.pcap",
+      "application/x-pcapng"
+    ],
+    "requires_configuration": true,
+    "description": "packet capture analysis",
+    "python_module": "pcap_run"
+  },
   "PDF_Info": {
     "type": "file",
     "supported_filetypes": [

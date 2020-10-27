@@ -28,6 +28,7 @@ from api_app.script_analyzers.file_analyzers import (
     quark_engine,
     unpac_me,
     xlm_macro_deobfuscator,
+    pcap_info
 )
 from api_app.script_analyzers.observable_analyzers import vt3_get
 
@@ -535,6 +536,34 @@ class FileAnalyzersAPKTests(TestCase):
         ).start()
         self.assertEqual(report.get("success", False), True)
 
+class FileAnalyzersPCAPTests(TestCase):
+    def setUp(self):
+        params = {
+            "source": "test",
+            "is_sample": True,
+            "file_mimetype": "application/vnd.tcpdump.pcap",
+            "force_privacy": False,
+            "analyzers_requested": ["test"]
+        }
+
+        filename = "sample.pcap"
+        test_job = _generate_test_job_with_file(params, filename)
+        self.job_id = test_job.id
+        self.filepath, self.filename = utils.get_filepath_filename(self.job_id)
+        self.md5 = test_job.md5
+
+    @mock_connections(patch("requests.get", side_effect=mocked_docker_analyzer_get))
+    @mock_connections(patch("requests.post", side_effect=mocked_docker_analyzer_post))
+    def packettotal_pcap_info(self, mock_get=None, mock_post=None):
+        report = pcap_info.PcapInfo(
+            "PCAP_Info",
+            self.job_id,
+            self.filepath,
+            self.filename,
+            self.md5,
+            {},
+        ).start()
+        self.assertEqual(report.get("success", False), True)
 
 def _generate_test_job_with_file(params, filename):
     test_file = f"{settings.PROJECT_LOCATION}/test_files/{filename}"

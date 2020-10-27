@@ -28,7 +28,7 @@ from api_app.script_analyzers.file_analyzers import (
     quark_engine,
     unpac_me,
     xlm_macro_deobfuscator,
-    pcap_info
+    pcap_info,
 )
 from api_app.script_analyzers.observable_analyzers import vt3_get
 
@@ -536,6 +536,7 @@ class FileAnalyzersAPKTests(TestCase):
         ).start()
         self.assertEqual(report.get("success", False), True)
 
+
 class FileAnalyzersPCAPTests(TestCase):
     def setUp(self):
         params = {
@@ -543,7 +544,7 @@ class FileAnalyzersPCAPTests(TestCase):
             "is_sample": True,
             "file_mimetype": "application/vnd.tcpdump.pcap",
             "force_privacy": False,
-            "analyzers_requested": ["test"]
+            "analyzers_requested": ["test"],
         }
 
         filename = "sample.pcap"
@@ -564,6 +565,7 @@ class FileAnalyzersPCAPTests(TestCase):
             {},
         ).start()
         self.assertEqual(report.get("success", False), True)
+
 
 def _generate_test_job_with_file(params, filename):
     test_file = f"{settings.PROJECT_LOCATION}/test_files/{filename}"

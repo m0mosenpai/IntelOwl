@@ -555,7 +555,7 @@ class FileAnalyzersPCAPTests(TestCase):
 
     @mock_connections(patch("requests.get", side_effect=mocked_docker_analyzer_get))
     @mock_connections(patch("requests.post", side_effect=mocked_docker_analyzer_post))
-    def packettotal_pcap_info(self, mock_get=None, mock_post=None):
+    def test_packettotal_pcap(self, mock_get=None, mock_post=None):
         report = pcap_info.PcapInfo(
             "PCAP_Info",
             self.job_id,

@@ -20,9 +20,7 @@ class PcapInfo(FileAnalyzer):
             "api_key_name", "PACKETTOTAL_API_KEY"
         )
         self.__api_key = secrets.get_secret(self.api_key_name)
-        # max no. of tries when polling for result
         self.max_tries = additional_config_params.get("max_tries", 200)
-        # interval b/w HTTP requests when polling
         self.poll_distance = 3
         self.is_test = additional_config_params.get("is_test", False)
 

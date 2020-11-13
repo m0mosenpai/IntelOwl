@@ -531,7 +531,7 @@
     ],
     "requires_configuration": true,
     "description": "packet capture analysis",
-    "python_module": "pcap_run"
+    "python_module": "pcap_info.PcapInfo"
   },
   "PDF_Info": {
     "type": "file",

@@ -23,6 +23,8 @@ services:
       - ./docker//docker_entrypoint.sh
     expose:
       - "8001"
+    environment:
+      - DJANGO_SETTINGS_MODULE=intel_owl.settings
     env_file:
       - env_file_app
     depends_on:

@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = IntelOwl
+source = intel_owl
 
 [report]
 exclude_lines =

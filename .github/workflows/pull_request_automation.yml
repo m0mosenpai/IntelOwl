@@ -36,4 +36,6 @@ jobs:
         sudo docker exec intel_owl_uwsgi flake8 . --count
     - name: Run Tests
       run: |
-        sudo docker exec intel_owl_uwsgi python manage.py test tests
+        sudo docker exec intel_owl_uwsgi python manage.py test --with-coverage tests
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1

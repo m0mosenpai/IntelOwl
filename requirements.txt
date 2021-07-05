@@ -55,7 +55,7 @@ pymisp==2.4.126
 pyparsing==2.4.2
 pypdns==1.4.1
 pypssl==2.1
-pyrsistent==0.15.4
+pyrsistent==0.18.0
 pysafebrowsing==0.1.1
 PySocks==1.7.1
 pytest==3.10.1
